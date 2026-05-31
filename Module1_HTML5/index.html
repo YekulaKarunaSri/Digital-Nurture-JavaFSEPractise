@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Local Community Event Portal</title>
+
+<style>
+
+body{
+font-family: Arial;
+}
+
+#welcomeBanner{
+background-color: lightblue;
+padding: 5px;
+}
+
+.highlight{
+background-color: rgb(255, 0, 242);
+}
+
+.gallery{
+width:150px;
+height:100px;
+border:2px solid black;
+}
+
+table{
+margin-top:10px;
+}
+
+td{
+padding:10px;
+text-align:center;
+}
+
+</style>
+
+<script>
+
+function validatePhone(){
+alert("Phone Number Checked");
+}
+
+function showFee(){
+
+var e=document.getElementById("event");
+
+if(e.value=="Sports"){
+document.getElementById("fee").innerHTML="Fee : ₹100";
+}
+else if(e.value=="Music"){
+document.getElementById("fee").innerHTML="Fee : ₹200";
+}
+else{
+document.getElementById("fee").innerHTML="Fee : ₹150";
+}
+
+}
+
+function submitMsg(){
+alert("Feedback Submitted");
+}
+
+function countChars(){
+
+var x=document.getElementById("feedback").value.length;
+
+document.getElementById("count").innerHTML=x;
+
+}
+
+function savePreference(){
+
+localStorage.setItem(
+"eventType",
+document.getElementById("eventType").value
+);
+
+}
+
+function clearData(){
+
+localStorage.clear();
+sessionStorage.clear();
+
+alert("Preferences Cleared");
+
+}
+
+function findLocation(){
+
+navigator.geolocation.getCurrentPosition(
+
+function(position){
+
+document.getElementById("location").innerHTML=
+"Latitude : " + position.coords.latitude +
+"<br>Longitude : " + position.coords.longitude;
+
+},
+
+function(){
+
+alert("Location Access Denied");
+
+}
+
+);
+
+}
+
+window.onload=function(){
+
+var saved=localStorage.getItem("eventType");
+
+if(saved){
+document.getElementById("eventType").value=saved;
+}
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav>
+
+<a href="#home">Home</a> |
+<a href="#events">Events</a> |
+<a href="#contact">Contact</a> |
+<a href="help.html" target="_blank">Help</a>
+
+</nav>
+
+<hr>
+
+<!-- Main -->
+
+<section id="home">
+
+<div id="welcomeBanner">
+
+<h2>Welcome to Community Event Portal</h2>
+
+<p>
+Get
+<span style="color:red;font-weight:bold;">
+20% Discount
+</span>
+on selected events.
+</p>
+
+<p class="highlight">
+Register Today
+</p>
+
+</div>
+
+</section>
+
+<hr>
+
+<section id="events">
+
+<h2>Event Gallery</h2>
+
+<table border="1">
+
+<tr>
+
+<td>
+<img src="https://picsum.photos/150/100?1"
+alt="Sports"
+title="Sports"
+class="gallery">
+<br>
+Sports Day
+</td>
+
+<td>
+<img src="https://picsum.photos/150/100?2"
+alt="Music"
+title="Music"
+class="gallery">
+<br>
+Music Festival
+</td>
+
+<td>
+<img src="https://picsum.photos/150/100?3"
+alt="Food"
+title="Food"
+class="gallery">
+<br>
+Food Fair
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+<img src="https://picsum.photos/150/100?4"
+alt="Tree Plantation"
+title="Tree Plantation"
+class="gallery">
+<br>
+Tree Plantation
+</td>
+
+<td>
+<img src="https://picsum.photos/150/100?5"
+alt="Art Show"
+title="Art Show"
+class="gallery">
+<br>
+Art Exhibition
+</td>
+
+<td>
+<img src="https://picsum.photos/150/100?6"
+alt="Health Camp"
+title="Health Camp"
+class="gallery">
+<br>
+Health Camp
+</td>
+
+</tr>
+
+</table>
+
+</section>
+
+<hr>
+
+<section>
+
+<h2>Event Registration Form</h2>
+
+<form>
+
+Name<br>
+<input type="text"
+placeholder="Enter Name"
+required
+autofocus>
+
+<br><br>
+
+Email<br>
+<input type="email"
+placeholder="Enter Email"
+required>
+
+<br><br>
+
+Date<br>
+<input type="date">
+
+<br><br>
+
+Event Type<br>
+
+<select id="eventType" onchange="savePreference()">
+
+<option>Sports</option>
+<option>Music</option>
+<option>Workshop</option>
+
+</select>
+
+<br><br>
+
+Message<br>
+
+<textarea
+placeholder="Enter Message">
+</textarea>
+
+<br><br>
+
+<button type="submit">
+Register
+</button>
+
+<br><br>
+
+<output>
+Registration Successful
+</output>
+
+</form>
+
+</section>
+
+<hr>
+
+<section>
+
+<h2>Event Feedback</h2>
+
+Phone Number<br>
+
+<input type="text" onblur="validatePhone()">
+
+<br><br>
+
+Select Event<br>
+
+<select id="event" onchange="showFee()">
+
+<option>Sports</option>
+<option>Music</option>
+<option>Workshop</option>
+
+</select>
+
+<p id="fee"></p>
+
+Feedback<br>
+
+<textarea
+id="feedback"
+onkeyup="countChars()">
+</textarea>
+
+<p>
+Characters :
+<span id="count">0</span>
+</p>
+
+<button onclick="submitMsg()">
+Submit Feedback
+</button>
+
+</section>
+
+<hr>
+
+<section>
+
+<h2>User Preferences</h2>
+
+<button onclick="clearData()">
+Clear Preferences
+</button>
+
+</section>
+
+<hr>
+
+<section>
+
+<h2>Find Nearby Events</h2>
+
+<button onclick="findLocation()">
+Find Nearby Events
+</button>
+
+<p id="location"></p>
+
+</section>
+
+<hr>
+
+<section id="contact">
+
+<h2>Contact Us</h2>
+
+<p>Email : cityevents@gmail.com</p>
+
+<p>Phone : 9876543210</p>
+
+</section>
+
+<!-- Footer -->
+
+<footer>
+
+<hr>
+
+<p>Local Community Event Portal</p>
+
+</footer>
+
+</body>
+
+</html>
